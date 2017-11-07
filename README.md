@@ -5,6 +5,8 @@ Jumpin' Jack is a trivial and ugly, but still maybe potentially useful script to
 
 This can be useful if the original intent was to build constant-time code.
 
+It was designed to check C/C++ code, but it might work with other compiled languages as well.
+
 Usage
 -----
 
