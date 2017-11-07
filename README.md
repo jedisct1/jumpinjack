@@ -10,7 +10,7 @@ It was designed to check C/C++ code, but it might work with other compiled langu
 Usage
 -----
 
-* Disassemble the compiled library to analyze using binutils'`objdump` (`gobjdump` on MacOS):
+* Disassemble the compiled library to analyze using binutils'`objdump` (`gobjdump` from `binutils` on MacOS):
 
 ```sh
 objdump -d -l /usr/local/lib/libfoo.so > foo.odump
