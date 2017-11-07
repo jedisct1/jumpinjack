@@ -45,7 +45,7 @@ h0 = ((uint64_t) a) & mask; /*** JJ: JUMP! (jne 1d4c1 <crypto_scalarmult_curve25
 
 You should carefully review these first and they are more likely to contain conditional jumps inserted by the compiler, that are not explicitly visible in the source code.
 
-Jumpin'Jack can also be useful to discover interesting loop optimizations performed by the compiler, such as:
+Jumpin' Jack can also be useful to discover interesting loop optimizations performed by the compiler, such as:
 
 ```c
 for (i = 63; i != 0; i--) {
