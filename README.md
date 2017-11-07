@@ -44,3 +44,28 @@ h0 = ((uint64_t) a) & mask; /*** JJ: JUMP! (jne 1d4c1 <crypto_scalarmult_curve25
 ```
 
 You should carefully review these first and they are more likely to contain conditional jumps inserted by the compiler, that are not explicitly visible in the source code.
+
+Jumpin'Jack can also be useful to discover interesting loop optimizations performed by the compiler, such as:
+
+```c
+for (i = 63; i != 0; i--) {
+    ge25519_select(&t, pi, e[i]);
+    ge25519_madd(&r, h, &t);
+
+    ge25519_p1p1_to_p2(&s, &r);	/*** JJ: JUMP! (jne 10a38 <ge25519_scalarmult+0x285>) ***/
+    ge25519_p2_dbl(&r, &s);
+    ge25519_p1p1_to_p2(&s, &r);
+    ge25519_p2_dbl(&r, &s);
+    ge25519_p1p1_to_p2(&s, &r);
+    ge25519_p2_dbl(&r, &s);
+    ge25519_p1p1_to_p2(&s, &r);
+    ge25519_p2_dbl(&r, &s);
+    ge25519_p1p1_to_p3(h, &r);
+}
+ge25519_select(&t, pi, e[i]);
+ge25519_madd(&r, h, &t);
+
+ge25519_p1p1_to_p3(h, &r);
+```
+
+The compiler noticed code right after the loop identical to the one at the beginning of the loop, and inserted the conditional jump right after it, removing the second occurrence.
