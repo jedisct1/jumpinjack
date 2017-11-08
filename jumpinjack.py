@@ -18,7 +18,7 @@ def tag_file(affected_file, affected_lines):
                 line_nb = line_nb + 1
                 if line_nb in affected_lines:
                     detail = affected_lines[line_nb]
-                    if re.match(".*(for|while|do|if|else|assert|break|switch|return|\}).*", line):
+                    if re.match(".*(for|while|do|if|else|assert|break|continue|switch|return|\}).*", line):
                         line = line.rstrip() + "\t/*** JJ: JUMP (" + detail + ") ***/\n"
                     else:
                         line = line.rstrip() + "\t/*** JJ: JUMP! (" + detail + ") ***/\n"
