@@ -4,8 +4,6 @@ import getopt
 import sys
 import re
 
-file, line_nb = None, 0
-
 affected_files = {}
 
 
@@ -18,7 +16,7 @@ def tag_file(affected_file, affected_lines):
                 line_nb = line_nb + 1
                 if line_nb in affected_lines:
                     detail = affected_lines[line_nb]
-                    if re.match(".*(for|while|do|if|else|assert|break|continue|switch|return|\}).*", line):
+                    if re.match(r".*(for|while|do|if|else|assert|break|continue|switch|return|\}).*", line):
                         line = line.rstrip() + "\t/*** JJ: JUMP (" + detail + ") ***/\n"
                     else:
                         line = line.rstrip() + "\t/*** JJ: JUMP! (" + detail + ") ***/\n"
@@ -54,7 +52,7 @@ def tag(base_dir, dump_file):
         if file not in affected_files:
             affected_files[file] = {}
 
-        affected_files[file][line_nb] = re.sub("\s+", " ", parts[2])
+        affected_files[file][line_nb] = re.sub(r"\s+", " ", parts[2])
 
     for affected_file in affected_files:
         try:
